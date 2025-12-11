@@ -1,0 +1,245 @@
+Observações do Design
+ Background: Cinza claro (#d3d3e0 aproximadamente).
+ Card central: Campos com fundo branco, bordas arredondadas.
+ Botão principal: Roxo (#9b4dff aproximadamente), texto branco.
+ Tipografia: Títulos em preto, subtítulo em cinza escuro, links em roxo.
+ Layout: Centralizado vertical e horizontalmente.
+
+Estrutura do Projeto React
+src/
+App.jsx
+main.jsx
+styles.css
+pages/
+Login.jsx
+Cadastro.jsx
+Movimentacoes.jsx
+Produto.jsx
+components/
+Input.jsx
+Button.jsx
+
+src/styles.css
+
+#Públic
+a
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #d3d3e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  background: transparent;
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+#Públic
+a
+
+  gap: 12px;
+}
+
+.input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.button {
+  background-color: #9b4dff;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.link {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.link a {
+  color: #9b4dff;
+  text-decoration: none;
+}
+
+#Públic
+a
+
+src/components/Input.jsx
+export default function Input({ placeholder, type = &quot;text&quot;, required = false }) {
+  return (
+    &lt;input
+
+#Públic
+a
+
+      className=&quot;input&quot;
+      type={type}
+      placeholder={placeholder}
+      required={required}
+    /&gt;
+  );
+}
+
+src/components/Button.jsx
+export default function Button({ children }) {
+  return &lt;button className=&quot;button&quot;&gt;{children}&lt;/button&gt;;
+}
+
+#Públic
+a
+
+src/pages/Login.jsx
+import Input from &quot;../components/Input&quot;;
+import Button from &quot;../components/Button&quot;;
+export default function Login() {
+  return (
+    &lt;div className=&quot;container&quot;&gt;
+
+#Públic
+a
+
+      &lt;h1&gt;Login&lt;/h1&gt;
+      &lt;p className=&quot;subtitle&quot;&gt;Controle de Estoque&lt;/p&gt;
+      &lt;form className=&quot;form&quot;&gt;
+        &lt;Input placeholder=&quot;*E-mail&quot; type=&quot;email&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Senha&quot; type=&quot;password&quot; required /&gt;
+        &lt;Button&gt;Entrar&lt;/Button&gt;
+      &lt;/form&gt;
+      &lt;p className=&quot;link&quot;&gt;
+        Não possui conta? Então /cadastrorealize o cadastro&lt;/a&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+src/pages/Cadastro.jsx
+import Input from &quot;../components/Input&quot;;
+import Button from &quot;../components/Button&quot;;
+
+export default function Cadastro() {
+  return (
+    &lt;div className=&quot;container&quot;&gt;
+
+#Públic
+a
+
+      &lt;h1&gt;Cadastre-se&lt;/h1&gt;
+      &lt;p className=&quot;subtitle&quot;&gt;Controle de Estoque&lt;/p&gt;
+      &lt;form className=&quot;form&quot;&gt;
+        &lt;Input placeholder=&quot;*E-mail&quot; type=&quot;email&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Senha&quot; type=&quot;password&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Nome da empresa&quot; required /&gt;
+        &lt;Input placeholder=&quot;*CNPJ&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Telefone&quot; required /&gt;
+        &lt;Button&gt;Cadastrar&lt;/Button&gt;
+      &lt;/form&gt;
+      &lt;p className=&quot;link&quot;&gt;
+        Já possui conta? Então /realize o login&lt;/a&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+src/pages/Movimentacoes.jsx
+import Input from &quot;../components/Input&quot;;
+import Button from &quot;../components/Button&quot;;
+
+export default function Movimentacoes() {
+  return (
+    &lt;div className=&quot;container&quot;&gt;
+      &lt;h1&gt;Movimentações&lt;/h1&gt;
+
+#Públic
+a
+
+      &lt;p className=&quot;subtitle&quot;&gt;Controle de Estoque&lt;/p&gt;
+      &lt;form className=&quot;form&quot;&gt;
+        &lt;Input placeholder=&quot;*Nome do produto&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Tipo do produto&quot; required /&gt;
+        &lt;Input placeholder=&quot;Fornecedor&quot; /&gt;
+        &lt;Input placeholder=&quot;*Quantidade&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Data de entrada do produto&quot; type=&quot;date&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Data de saída do produto&quot; type=&quot;date&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Lote&quot; required /&gt;
+        &lt;Button&gt;Cadastrar&lt;/Button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+}
+
+src/pages/Produto.jsx
+import Input from &quot;../components/Input&quot;;
+import Button from &quot;../components/Button&quot;;
+
+export default function Produto() {
+  return (
+    &lt;div className=&quot;container&quot;&gt;
+      &lt;h1&gt;Cadastrar Produto&lt;/h1&gt;
+      &lt;p className=&quot;subtitle&quot;&gt;Controle de Estoque&lt;/p&gt;
+
+#Públic
+a
+
+      &lt;form className=&quot;form&quot;&gt;
+        &lt;Input placeholder=&quot;*Nome do produto&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Quantidade&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Fornecedor&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Data de entrada do produto&quot; type=&quot;date&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Lote&quot; required /&gt;
+        &lt;Input placeholder=&quot;*Nota fiscal&quot; required /&gt;
+        &lt;Button&gt;Cadastrar&lt;/Button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+
+src/App.jsx
+import { BrowserRouter, Routes, Route } from &quot;react-router-dom&quot;;
+import Login from &quot;./pages/Login&quot;;
+import Cadastro from &quot;./pages/Cadastro&quot;;
+import Movimentacoes from &quot;./pages/Movimentacoes&quot;;
+import Produto from &quot;./pages/Produto&quot;;
+import &quot;./styles.css&quot;;
+
+export default function App() {
+  return (
+
+#Públic
+a
+
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        &lt;Route path=&quot;/&quot; element={&lt;Login /&gt;} /&gt;
+        &lt;Route path=&quot;/cadastro&quot; element={&lt;Cadastro /&gt;} /&gt;
+        &lt;Route path=&quot;/movimentacoes&quot; element={&lt;Movimentacoes /&gt;} /&gt;
+        &lt;Route path=&quot;/produto&quot; element={&lt;Produto /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
