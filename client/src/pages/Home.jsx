@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import LoginModal from "@/components/LoginModal";
+import logoImage from "@assets/WhatsApp_Image_2025-12-15_at_11.31.42_1765809119660.jpeg";
 
 export default function Home() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="w-full border-b border-border bg-card">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <span className="text-xl font-bold text-foreground" data-testid="text-logo">Controle Total</span>
+          <img src={logoImage} alt="Controle Total" className="h-12 w-auto" data-testid="logo" />
           <nav className="hidden md:flex items-center gap-8">
             <a href="#como-funciona" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-como-funciona">
               Como funciona

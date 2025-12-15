@@ -1,25 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import DashboardLayout from "@/components/DashboardLayout";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
-
-// todo: remove mock data - fetch from API
-const mockProducts = [
-  { id: "1", nome: "Produto A", quantidade: 150, fornecedor: "Fornecedor X", lote: "L001", dataEntrada: "10/12/2024" },
-  { id: "2", nome: "Produto B", quantidade: 5, fornecedor: "Fornecedor Y", lote: "L002", dataEntrada: "08/12/2024" },
-  { id: "3", nome: "Produto C", quantidade: 80, fornecedor: "Fornecedor Z", lote: "L003", dataEntrada: "05/12/2024" },
-  { id: "4", nome: "Produto D", quantidade: 200, fornecedor: "Fornecedor X", lote: "L004", dataEntrada: "01/12/2024" },
-  { id: "5", nome: "Produto E", quantidade: 3, fornecedor: "Fornecedor W", lote: "L005", dataEntrada: "28/11/2024" },
-  { id: "6", nome: "Produto F", quantidade: 45, fornecedor: "Fornecedor Y", lote: "L006", dataEntrada: "25/11/2024" },
-];
+import { localStorageService } from "@/lib/localStorage";
 
 export default function Produtos() {
   const [searchTerm, setSearchTerm] = useState("");
-  // todo: remove mock state - use real data from API
-  const [products] = useState(mockProducts);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const storedProducts = localStorageService.getProducts();
+    setProducts(storedProducts);
+  }, []);
 
   const filteredProducts = products.filter((product) =>
     product.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||

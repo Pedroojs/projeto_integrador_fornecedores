@@ -5,6 +5,7 @@ import FormInput from "@/components/FormInput";
 import FormButton from "@/components/FormButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { localStorageService } from "@/lib/localStorage";
 
 export default function ProdutoForm() {
   const [, setLocation] = useLocation();
@@ -41,15 +42,20 @@ export default function ProdutoForm() {
 
     setIsLoading(true);
 
-    // todo: remove mock functionality - implement real API call
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Produto cadastrado!",
-        description: `${nome} foi adicionado ao estoque.`,
-      });
-      setLocation("/produtos");
-    }, 500);
+    localStorageService.addProduct({
+      nome,
+      quantidade: parseInt(quantidade),
+      fornecedor,
+      dataEntrada: new Date(dataEntrada).toLocaleDateString("pt-BR"),
+      lote,
+      notaFiscal,
+    });
+    setIsLoading(false);
+    toast({
+      title: "Produto cadastrado!",
+      description: `${nome} foi adicionado ao estoque.`,
+    });
+    setLocation("/produtos");
   };
 
   return (

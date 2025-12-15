@@ -4,6 +4,7 @@ import AuthLayout from "@/components/AuthLayout";
 import FormInput from "@/components/FormInput";
 import FormButton from "@/components/FormButton";
 import { useToast } from "@/hooks/use-toast";
+import { localStorageService } from "@/lib/localStorage";
 
 export default function Login() {
   const [, setLocation] = useLocation();
@@ -26,15 +27,23 @@ export default function Login() {
 
     setIsLoading(true);
     
-    // todo: remove mock functionality - implement real login API call
-    setTimeout(() => {
+    const user = localStorageService.getUserByUsername(email);
+    if (user && user.password === password) {
+      localStorageService.setCurrentUser(user);
       setIsLoading(false);
       toast({
         title: "Login realizado!",
         description: "Bem-vindo ao sistema de estoque.",
       });
       setLocation("/dashboard");
-    }, 1000);
+    } else {
+      setIsLoading(false);
+      toast({
+        title: "Erro",
+        description: "E-mail ou senha inválidos.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

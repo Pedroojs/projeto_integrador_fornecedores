@@ -4,6 +4,7 @@ import AuthLayout from "@/components/AuthLayout";
 import FormInput from "@/components/FormInput";
 import FormButton from "@/components/FormButton";
 import { useToast } from "@/hooks/use-toast";
+import { localStorageService } from "@/lib/localStorage";
 
 export default function Cadastro() {
   const [, setLocation] = useLocation();
@@ -39,15 +40,24 @@ export default function Cadastro() {
 
     setIsLoading(true);
 
-    // todo: remove mock functionality - implement real registration API call
-    setTimeout(() => {
+    const existingUser = localStorageService.getUserByUsername(email);
+    if (existingUser) {
       setIsLoading(false);
       toast({
-        title: "Cadastro realizado!",
-        description: "Sua conta foi criada com sucesso.",
+        title: "Erro",
+        description: "Este e-mail já está cadastrado.",
+        variant: "destructive",
       });
-      setLocation("/");
-    }, 1000);
+      return;
+    }
+
+    localStorageService.addUser({ username: email, password, empresa, cnpj, telefone });
+    setIsLoading(false);
+    toast({
+      title: "Cadastro realizado!",
+      description: "Sua conta foi criada com sucesso.",
+    });
+    setLocation("/");
   };
 
   return (

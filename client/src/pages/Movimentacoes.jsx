@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import MovementRow from "@/components/MovementRow";
 import FormInput from "@/components/FormInput";
@@ -6,21 +6,12 @@ import FormButton from "@/components/FormButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-
-// todo: remove mock data - fetch from API
-const mockMovements = [
-  { id: "1", produto: "Produto A", tipo: "entrada", quantidade: 50, data: "11/12/2024", lote: "L001" },
-  { id: "2", produto: "Produto B", tipo: "saida", quantidade: 10, data: "10/12/2024", lote: "L002" },
-  { id: "3", produto: "Produto C", tipo: "entrada", quantidade: 30, data: "09/12/2024", lote: "L003" },
-  { id: "4", produto: "Produto A", tipo: "saida", quantidade: 20, data: "08/12/2024", lote: "L001" },
-  { id: "5", produto: "Produto D", tipo: "entrada", quantidade: 100, data: "07/12/2024", lote: "L004" },
-];
+import { localStorageService } from "@/lib/localStorage";
 
 export default function Movimentacoes() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  // todo: remove mock state - use real data from API
-  const [movements, setMovements] = useState(mockMovements);
+  const [movements, setMovements] = useState([]);
   const [formData, setFormData] = useState({
     produto: "",
     tipo: "",
@@ -29,6 +20,11 @@ export default function Movimentacoes() {
     lote: "",
     fornecedor: "",
   });
+
+  useEffect(() => {
+    const storedMovements = localStorageService.getMovements();
+    setMovements([...storedMovements].reverse());
+  }, []);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -52,24 +48,21 @@ export default function Movimentacoes() {
 
     setIsLoading(true);
 
-    // todo: remove mock functionality - implement real API call
-    setTimeout(() => {
-      const newMovement = {
-        id: String(movements.length + 1),
-        produto,
-        tipo,
-        quantidade: parseInt(quantidade),
-        data: new Date(data).toLocaleDateString("pt-BR"),
-        lote,
-      };
-      setMovements([newMovement, ...movements]);
-      setFormData({ produto: "", tipo: "", quantidade: "", data: "", lote: "", fornecedor: "" });
-      setIsLoading(false);
-      toast({
-        title: "Movimentação registrada!",
-        description: `${tipo === "entrada" ? "Entrada" : "Saída"} de ${quantidade} unidades.`,
-      });
-    }, 500);
+    const newMovement = localStorageService.addMovement({
+      produto,
+      tipo,
+      quantidade: parseInt(quantidade),
+      data: new Date(data).toLocaleDateString("pt-BR"),
+      lote,
+      fornecedor: formData.fornecedor,
+    });
+    setMovements((prev) => [newMovement, ...prev]);
+    setFormData({ produto: "", tipo: "", quantidade: "", data: "", lote: "", fornecedor: "" });
+    setIsLoading(false);
+    toast({
+      title: "Movimentação registrada!",
+      description: `${tipo === "entrada" ? "Entrada" : "Saída"} de ${quantidade} unidades.`,
+    });
   };
 
   return (
