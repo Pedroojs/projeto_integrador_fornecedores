@@ -1,15 +1,9 @@
-import { useState } from "react";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import LoginModal from "@/components/LoginModal";
 import logoImage from "@assets/WhatsApp_Image_2025-12-15_at_11.31.42_1765809119660.jpeg";
 
 export default function Home() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [, setLocation] = useLocation();
-
-  const handleCriarConta = () => {
-    setLocation("/cadastro");
+  const handleLogin = () => {
+    window.location.href = "/api/login";
   };
 
   return (
@@ -30,7 +24,7 @@ export default function Home() {
           </nav>
           <Button
             variant="ghost"
-            onClick={() => setIsLoginOpen(true)}
+            onClick={handleLogin}
             className="text-foreground hover:text-primary"
             data-testid="button-entrar"
           >
@@ -49,8 +43,8 @@ export default function Home() {
             Relatórios automáticos e gestão profissional.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" className="px-8 py-6 text-lg" onClick={handleCriarConta} data-testid="button-criar-conta">
-              Criar Conta
+            <Button size="lg" className="px-8 py-6 text-lg" onClick={handleLogin} data-testid="button-criar-conta">
+              Começar Agora
             </Button>
           </div>
         </div>
@@ -120,8 +114,6 @@ export default function Home() {
           <p data-testid="text-footer">&copy; {new Date().getFullYear()} Controle Total. Todos os direitos reservados.</p>
         </div>
       </footer>
-
-      <LoginModal open={isLoginOpen} onOpenChange={setIsLoginOpen} />
     </div>
   );
 }
