@@ -38,10 +38,10 @@ const menuItems = [
 ];
 
 export default function AppSidebar() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
 
   const handleLogout = () => {
-    window.location.href = "/";
+    setLocation("/");
   };
 
   return (

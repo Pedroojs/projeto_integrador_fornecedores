@@ -1,11 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 import logoImage from "@assets/WhatsApp_Image_2025-12-15_at_11.31.42_1765809119660.jpeg";
 
 export default function Home() {
-  const handleLogin = () => {
-    window.location.href = "/api/login";
-  };
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="w-full border-b border-border bg-card">
@@ -22,14 +19,15 @@ export default function Home() {
               Sobre
             </a>
           </nav>
-          <Button
-            variant="ghost"
-            onClick={handleLogin}
-            className="text-foreground hover:text-primary"
-            data-testid="button-entrar"
-          >
-            Entrar
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              variant="ghost"
+              className="text-foreground hover:text-primary"
+              data-testid="button-entrar"
+            >
+              Entrar
+            </Button>
+          </Link>
         </div>
       </header>
 
@@ -43,9 +41,11 @@ export default function Home() {
             Relatórios automáticos e gestão profissional.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" className="px-8 py-6 text-lg" onClick={handleLogin} data-testid="button-criar-conta">
-              Começar Agora
-            </Button>
+            <Link href="/dashboard">
+              <Button size="lg" className="px-8 py-6 text-lg" data-testid="button-criar-conta">
+                Começar Agora
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
