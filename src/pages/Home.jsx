@@ -19,7 +19,7 @@ export default function Home() {
               Sobre
             </a>
           </nav>
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button
               variant="ghost"
               className="text-foreground hover:text-primary"
@@ -41,7 +41,7 @@ export default function Home() {
             Relatórios automáticos e gestão profissional.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Link href="/dashboard">
+            <Link href="/cadastro">
               <Button size="lg" className="px-8 py-6 text-lg" data-testid="button-criar-conta">
                 Começar Agora
               </Button>
