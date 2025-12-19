@@ -1,112 +1,130 @@
-# Controle de Estoque - Documentação
+# 🚀 Controle de Estoque - Documentação Interna
 
-## Visão Geral
-Aplicação web para gerenciamento de estoque, produtos e movimentações. Permite cadastrar produtos, registrar entradas/saídas de estoque e visualizar relatórios em tempo real.
+## Status Atual
+✅ **Projeto Completo** - Todas as funcionalidades implementadas e testadas
 
-## Funcionalidades Implementadas
+## Implementações Recentes (19/12/2025)
 
-### 1. **Validações de Movimentação**
-- ✅ Só é possível fazer movimentações se o produto existir
-- ✅ Validação de quantidade insuficiente para saídas
-- ✅ Atualização automática do estoque ao registrar movimentação
-- ✅ Mensagens de erro claras para o usuário
+### ✅ Validações de Movimentação
+- Validação se produto existe antes de criar movimentação
+- Validação de quantidade insuficiente para saída
+- Atualização automática do estoque após movimentação
+- Mensagens de erro descritivas em toast
 
-### 2. **Autocomplete de Produtos**
-- ✅ Campo de entrada com autocompletar para seleção de produtos
-- ✅ Exibe sugestões enquanto o usuário digita
-- ✅ Mostra quantidade em estoque na sugestão
-- ✅ Seleção rápida clicando na sugestão
+### ✅ Autocomplete de Produtos
+- Novo componente `ProductAutocomplete.jsx`
+- Filtragem em tempo real enquanto digita
+- Exibe quantidade em estoque nas sugestões
+- Seleção rápida por clique
+- Tratamento de clique fora para fechar dropdown
 
-### 3. **Dashboard em Tempo Real**
-- ✅ Atualização automática de dados quando houver mudanças
-- ✅ Estatísticas corretas de estoque total
-- ✅ Produtos com baixo estoque (< 10 un.)
-- ✅ Histórico de movimentações
-- ✅ Monitoramento contínuo de mudanças no localStorage
+### ✅ Dashboard em Tempo Real
+- Polling a cada 500ms para sincronização
+- Listener de mudanças no localStorage
+- Atualização automática de estatísticas
+- Exibição correta de: Total Produtos, Estoque Total, Baixo Estoque, Movimentações Hoje
+
+## Arquivo de Documentação
+
+📄 **README.md** - Documentação profissional completa seguindo o padrão de projeto
+- Visão geral
+- Tecnologias utilizadas
+- Requisitos funcionais e não-funcionais
+- Estrutura do projeto
+- Como executar
+- Guia de uso
 
 ## Estrutura do Projeto
 
-### Frontend (React + Vite)
 ```
 src/
 ├── pages/
-│   ├── Dashboard.jsx - Dashboard com estatísticas
-│   ├── Movimentacoes.jsx - Registro de movimentações
-│   ├── Produtos.jsx - Listagem de produtos
-│   └── ... (outras páginas)
+│   ├── Home.jsx
+│   ├── Login.jsx
+│   ├── Cadastro.jsx
+│   ├── Dashboard.jsx (com polling em tempo real)
+│   ├── Produtos.jsx
+│   ├── ProdutoForm.jsx
+│   ├── Movimentacoes.jsx (com validações)
+│   └── not-found.jsx
 ├── components/
-│   ├── ProductAutocomplete.jsx - Autocomplete de produtos
-│   ├── ui/ - Componentes shadcn/ui
-│   └── ... (outros componentes)
+│   ├── ProductAutocomplete.jsx (novo)
+│   ├── ProductCard.jsx
+│   ├── MovementRow.jsx
+│   ├── StatsCard.jsx
+│   ├── DashboardLayout.jsx
+│   └── ui/
 ├── lib/
-│   └── localStorage.js - Serviço de persistência de dados
-└── App.jsx - Roteamento principal
+│   ├── localStorage.js (com updateProduct)
+│   ├── queryClient.js
+│   ├── authUtils.js
+│   └── utils.js
+├── App.jsx
+└── index.css
 ```
-
-### Armazenamento
-- localStorage com chaves: `controletotal_products`, `controletotal_movements`
-
-## Tecnologias Utilizadas
-- **Frontend**: React 18, Vite, Tailwind CSS, Radix UI
-- **Roteamento**: Wouter
-- **Validação**: Zod
-- **Estado**: React Hooks, React Query
-- **Ícones**: Lucide React
-
-## Mudanças Recentes (19/12/2025)
-
-### Nova: ProductAutocomplete Component
-- Componente reutilizável para autocompletar produtos
-- Filtra em tempo real conforme digita
-- Mostra quantidade em estoque na sugestão
-
-### Modificado: Movimentacoes.jsx
-- Integração com ProductAutocomplete
-- Validação se produto existe
-- Validação de quantidade disponível para saída
-- Atualização automática de estoque após movimentação
-
-### Modificado: Dashboard.jsx
-- Monitoramento contínuo de localStorage (polling)
-- Atualização de dados a cada 500ms
-- Listener para mudanças no storage
-
-## Como Usar
-
-### Cadastrar Produto
-1. Ir para "Produtos"
-2. Clicar em "Novo Produto"
-3. Preencher dados (nome, quantidade, fornecedor, lote)
-4. Salvar
-
-### Registrar Movimentação
-1. Ir para "Movimentações"
-2. No campo "Nome do produto", digitar nome (autocomplete aparecerá)
-3. Selecionar produto da lista
-4. Escolher tipo (Entrada/Saída)
-5. Informar quantidade
-6. Preencher lote e data
-7. Clicar "Registrar"
-
-### Visualizar Dashboard
-1. Ir para "Dashboard"
-2. Ver estatísticas em tempo real
-3. Produtos recentes e movimentações recentes
 
 ## Validações Implementadas
 
-### Antes de Salvar Movimentação
-- [ ] Campos obrigatórios preenchidos
-- [ ] Produto existe no sistema
-- [ ] Quantidade suficiente em estoque (para saída)
+### Antes de Registrar Movimentação
+✅ Campos obrigatórios preenchidos
+✅ Produto existe no sistema
+✅ Quantidade suficiente em estoque (para saída)
+✅ Mensagens de erro clara ao usuário
 
-### Atualização Automática
-- Estoque do produto é atualizado automaticamente
-- Dashboard reflete mudanças em tempo real
+### Atualização de Dados
+✅ Estoque atualizado automaticamente
+✅ Dashboard reflete mudanças em tempo real (polling 500ms)
+✅ Histórico de movimentações atualizado
+✅ Estatísticas recalculadas
 
-## Próximas Melhorias (Sugestões)
-- Usar banco de dados PostgreSQL em vez de localStorage
-- Autenticação com permissões de usuário
-- Relatórios avançados em PDF
-- Backup automático de dados
-- Notificações quando produtos atingem quantidade mínima
+## Como Testar
+
+1. **Cadastrar Produto**: Ir a "Produtos" → "Novo Produto"
+2. **Fazer Movimentação**: Ir a "Movimentações" → Digitar produto → Selecionar → Informar quantidade
+3. **Validações em Ação**:
+   - Tentar movimento com produto inexistente → Erro
+   - Tentar saída com estoque insuficiente → Erro
+   - Movimentação válida → Estoque atualizado automaticamente
+4. **Dashboard**: Verificar atualização automática em tempo real
+
+## Principais Mudanças de Código
+
+### ProductAutocomplete.jsx (Novo)
+- Componente reutilizável com autocomplete
+- Integração com localStorage de produtos
+- Filtragem em tempo real
+- Handler de clique fora
+
+### Movimentacoes.jsx
+- Integração com ProductAutocomplete
+- Validações de negócio antes de salvar
+- Atualização automática de estoque do produto
+- Estado local para selectedProduct
+
+### Dashboard.jsx
+- Polling a cada 500ms via setInterval
+- Listener de mudanças no storage
+- RefreshTrigger para forçar re-render
+
+## Tecnologias
+
+- React 18.3.1
+- Vite 5.4.20
+- Tailwind CSS
+- Radix UI
+- React Hook Form
+- React Query
+- Wouter
+- Zod
+
+## Próximas Melhorias
+
+- [ ] Integração com Backend/API REST
+- [ ] Banco de dados PostgreSQL
+- [ ] Autenticação com JWT
+- [ ] Relatórios em PDF
+- [ ] Gráficos mais avançados
+- [ ] Permissões por usuário
+- [ ] WebSocket para sync em tempo real
+- [ ] Backup automático
+- [ ] App mobile
