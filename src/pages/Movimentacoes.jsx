@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import MovementRow from "@/components/MovementRow";
+import ProductAutocomplete from "@/components/ProductAutocomplete";
 import FormInput from "@/components/FormInput";
 import FormButton from "@/components/FormButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,7 @@ export default function Movimentacoes() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [movements, setMovements] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [formData, setFormData] = useState({
     produto: "",
     tipo: "",
@@ -33,6 +35,10 @@ export default function Movimentacoes() {
     }));
   };
 
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,7 +52,36 @@ export default function Movimentacoes() {
       return;
     }
 
+    // Validar se o produto existe
+    const allProducts = localStorageService.getProducts();
+    const productExists = allProducts.find((p) => p.nome.toLowerCase() === produto.toLowerCase());
+
+    if (!productExists) {
+      toast({
+        title: "Erro",
+        description: "Produto não encontrado. Por favor, selecione um produto válido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validar quantidade disponível para saída
+    if (tipo === "saida" && productExists.quantidade < parseInt(quantidade)) {
+      toast({
+        title: "Erro",
+        description: `Quantidade insuficiente em estoque. Disponível: ${productExists.quantidade} unidades.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
+
+    // Atualizar quantidade do produto
+    const quantidadeChange = tipo === "entrada" ? parseInt(quantidade) : -parseInt(quantidade);
+    localStorageService.updateProduct(productExists.id, {
+      quantidade: productExists.quantidade + quantidadeChange,
+    });
 
     const newMovement = localStorageService.addMovement({
       produto,
@@ -58,6 +93,7 @@ export default function Movimentacoes() {
     });
     setMovements((prev) => [newMovement, ...prev]);
     setFormData({ produto: "", tipo: "", quantidade: "", data: "", lote: "", fornecedor: "" });
+    setSelectedProduct(null);
     setIsLoading(false);
     toast({
       title: "Movimentação registrada!",
@@ -74,14 +110,14 @@ export default function Movimentacoes() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-              <FormInput
-                name="produto"
-                type="text"
-                label="*Nome do produto"
-                value={formData.produto}
-                onChange={handleChange}
-                required
-              />
+              <div>
+                <label className="text-sm font-medium mb-1 block">*Nome do produto</label>
+                <ProductAutocomplete
+                  value={formData.produto}
+                  onChange={handleChange}
+                  onSelect={handleProductSelect}
+                />
+              </div>
               <Select
                 value={formData.tipo}
                 onValueChange={(value) => setFormData((prev) => ({ ...prev, tipo: value }))}

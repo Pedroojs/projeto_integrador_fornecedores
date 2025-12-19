@@ -1,61 +1,112 @@
-# Controle de Estoque (Stock Control System)
+# Controle de Estoque - Documentação
 
-## Overview
+## Visão Geral
+Aplicação web para gerenciamento de estoque, produtos e movimentações. Permite cadastrar produtos, registrar entradas/saídas de estoque e visualizar relatórios em tempo real.
 
-This is a full-stack inventory management system built with React frontend and Express backend. The application allows users to manage products, track stock movements, and maintain inventory records. It's a Portuguese-language application ("Sistema de Controle de Estoque") designed for product management and stock tracking.
+## Funcionalidades Implementadas
 
-## User Preferences
+### 1. **Validações de Movimentação**
+- ✅ Só é possível fazer movimentações se o produto existir
+- ✅ Validação de quantidade insuficiente para saídas
+- ✅ Atualização automática do estoque ao registrar movimentação
+- ✅ Mensagens de erro claras para o usuário
 
-Preferred communication style: Simple, everyday language.
+### 2. **Autocomplete de Produtos**
+- ✅ Campo de entrada com autocompletar para seleção de produtos
+- ✅ Exibe sugestões enquanto o usuário digita
+- ✅ Mostra quantidade em estoque na sugestão
+- ✅ Seleção rápida clicando na sugestão
 
-## System Architecture
+### 3. **Dashboard em Tempo Real**
+- ✅ Atualização automática de dados quando houver mudanças
+- ✅ Estatísticas corretas de estoque total
+- ✅ Produtos com baixo estoque (< 10 un.)
+- ✅ Histórico de movimentações
+- ✅ Monitoramento contínuo de mudanças no localStorage
 
-### Frontend Architecture
-- **Framework**: React with Vite as the build tool
-- **Styling**: Tailwind CSS with a comprehensive design system using CSS custom properties for theming (supports light/dark mode)
-- **UI Components**: Radix UI primitives (dialogs, dropdowns, forms, navigation, etc.) providing accessible, unstyled components
-- **State Management**: TanStack React Query for server state management and caching
-- **Forms**: React Hook Form with Zod resolvers for validation
-- **Path Aliasing**: Uses `@/*` alias pointing to `src/*` directory
+## Estrutura do Projeto
 
-### Backend Architecture
-- **Runtime**: Node.js with TypeScript (tsx for development)
-- **Framework**: Express.js (inferred from project name and session handling)
-- **Database ORM**: Drizzle ORM with PostgreSQL support
-- **Schema Validation**: Drizzle-Zod for type-safe schema definitions
-- **Session Management**: connect-pg-simple for PostgreSQL-backed sessions
+### Frontend (React + Vite)
+```
+src/
+├── pages/
+│   ├── Dashboard.jsx - Dashboard com estatísticas
+│   ├── Movimentacoes.jsx - Registro de movimentações
+│   ├── Produtos.jsx - Listagem de produtos
+│   └── ... (outras páginas)
+├── components/
+│   ├── ProductAutocomplete.jsx - Autocomplete de produtos
+│   ├── ui/ - Componentes shadcn/ui
+│   └── ... (outros componentes)
+├── lib/
+│   └── localStorage.js - Serviço de persistência de dados
+└── App.jsx - Roteamento principal
+```
 
-### Build System
-- **Development**: `tsx server/index.ts` runs the TypeScript server directly
-- **Production Build**: Custom build script (`script/build.ts`) outputs to `dist/`
-- **Database Migrations**: Drizzle Kit for schema pushing (`db:push`)
+### Armazenamento
+- localStorage com chaves: `controletotal_products`, `controletotal_movements`
 
-### Authentication Pattern
-- Session-based authentication with server-side session storage
-- `useAuth` hook queries `/api/auth/user` endpoint for current user state
-- Fallback localStorage service for offline/demo functionality
+## Tecnologias Utilizadas
+- **Frontend**: React 18, Vite, Tailwind CSS, Radix UI
+- **Roteamento**: Wouter
+- **Validação**: Zod
+- **Estado**: React Hooks, React Query
+- **Ícones**: Lucide React
 
-### Design Patterns
-- **Component Library**: shadcn/ui-style component architecture with class-variance-authority for variant styling
-- **API Communication**: Centralized `apiRequest` utility function with consistent error handling
-- **Query Configuration**: Disabled automatic refetching and infinite stale time (manual cache invalidation expected)
+## Mudanças Recentes (19/12/2025)
 
-## External Dependencies
+### Nova: ProductAutocomplete Component
+- Componente reutilizável para autocompletar produtos
+- Filtra em tempo real conforme digita
+- Mostra quantidade em estoque na sugestão
 
-### Database
-- **PostgreSQL**: Primary database (via Drizzle ORM and connect-pg-simple)
-- **Drizzle Kit**: Database schema management and migrations
+### Modificado: Movimentacoes.jsx
+- Integração com ProductAutocomplete
+- Validação se produto existe
+- Validação de quantidade disponível para saída
+- Atualização automática de estoque após movimentação
 
-### UI Libraries
-- **Radix UI**: Complete suite of accessible primitives (accordion, dialog, dropdown, popover, select, tabs, toast, tooltip, etc.)
-- **Embla Carousel**: For carousel/slider components
-- **cmdk**: Command palette functionality
-- **date-fns**: Date manipulation utilities
+### Modificado: Dashboard.jsx
+- Monitoramento contínuo de localStorage (polling)
+- Atualização de dados a cada 500ms
+- Listener para mudanças no storage
 
-### Core Libraries
-- **TanStack React Query**: Async state management
-- **Zod**: Runtime type validation
-- **class-variance-authority + clsx + tailwind-merge**: CSS class management utilities
+## Como Usar
 
-### Fonts
-- Google Fonts: DM Sans, Fira Code, Geist Mono, Architects Daughter
+### Cadastrar Produto
+1. Ir para "Produtos"
+2. Clicar em "Novo Produto"
+3. Preencher dados (nome, quantidade, fornecedor, lote)
+4. Salvar
+
+### Registrar Movimentação
+1. Ir para "Movimentações"
+2. No campo "Nome do produto", digitar nome (autocomplete aparecerá)
+3. Selecionar produto da lista
+4. Escolher tipo (Entrada/Saída)
+5. Informar quantidade
+6. Preencher lote e data
+7. Clicar "Registrar"
+
+### Visualizar Dashboard
+1. Ir para "Dashboard"
+2. Ver estatísticas em tempo real
+3. Produtos recentes e movimentações recentes
+
+## Validações Implementadas
+
+### Antes de Salvar Movimentação
+- [ ] Campos obrigatórios preenchidos
+- [ ] Produto existe no sistema
+- [ ] Quantidade suficiente em estoque (para saída)
+
+### Atualização Automática
+- Estoque do produto é atualizado automaticamente
+- Dashboard reflete mudanças em tempo real
+
+## Próximas Melhorias (Sugestões)
+- Usar banco de dados PostgreSQL em vez de localStorage
+- Autenticação com permissões de usuário
+- Relatórios avançados em PDF
+- Backup automático de dados
+- Notificações quando produtos atingem quantidade mínima

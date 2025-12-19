@@ -10,12 +10,35 @@ import { localStorageService } from "@/lib/localStorage";
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [movements, setMovements] = useState([]);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
     const storedProducts = localStorageService.getProducts();
     const storedMovements = localStorageService.getMovements();
     setProducts(storedProducts);
     setMovements([...storedMovements].reverse());
+  }, [refreshTrigger]);
+
+  useEffect(() => {
+    // Atualizar dashboard a cada mudança no localStorage
+    const handleStorageChange = () => {
+      setRefreshTrigger((prev) => prev + 1);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    
+    // Monitorar mudanças locais também
+    const interval = setInterval(() => {
+      const storedProducts = localStorageService.getProducts();
+      const storedMovements = localStorageService.getMovements();
+      setProducts(storedProducts);
+      setMovements([...storedMovements].reverse());
+    }, 500);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(interval);
+    };
   }, []);
 
   const totalProdutos = products.length;
