@@ -7,7 +7,7 @@ Aplicação web desenvolvida em **ReactJS** para gerenciamento completo de estoq
 ## 🌐 Deploy da Aplicação
 
 🔗 **Aplicação (Ambiente de Produção):**
-- Hospedada em [Replit](https://shre.ink/ProjetoIntegradorFornecedores)
+- Hospedada em: https://shre.ink/ProjetoIntegradorFornecedores
 
 ---
 
