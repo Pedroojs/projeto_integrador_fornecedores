@@ -14,7 +14,7 @@ Aplicação web desenvolvida em **ReactJS** para gerenciamento completo de estoq
 ## 📦 Repositório do Projeto
 
 🔗 **GitHub — FrontEnd (ReactJS + Vite):**
-- [Controle de Estoque](https://github.com/seu-usuario/controle-estoque)
+- [Controle de Estoque](https://github.com/Pedroojs/projeto_integrador_fornecedores)
 
 ---
 
@@ -47,8 +47,6 @@ Aplicação web desenvolvida em **ReactJS** para gerenciamento completo de estoq
 ### Ferramentas de Desenvolvimento
 - **Node.js** (v20)
 - **npm** (Gerenciador de pacotes)
-- **TypeScript** (Type safety)
-- **PostCSS** (Processamento CSS)
 
 ---
 
@@ -117,22 +115,30 @@ O projeto atende integralmente aos requisitos propostos, contemplando:
 ## 🖼️ Telas da Aplicação
 
 ### Tela 1 — Home (Landing Page)
+<img width="1366" height="648" alt="image" src="https://github.com/user-attachments/assets/a40ff696-64cf-4439-b101-1c08208293a9" />
+
 - Apresentação da aplicação
 - Call-to-action para login/cadastro
 - Funcionalidades principais listadas
 
 ### Tela 2 — Login
+<img width="1366" height="648" alt="image" src="https://github.com/user-attachments/assets/0b2c3157-d954-444b-80f1-d3213c324fd7" />
+
 - Autenticação de usuário
 - Validação de credenciais
 - Redirecionamento para dashboard
 
 ### Tela 3 — Dashboard
+<img width="1366" height="646" alt="image" src="https://github.com/user-attachments/assets/0f1e8a0a-a4d1-4761-8558-2a19fc5f6763" />
+
 - Estatísticas em cards (Total Produtos, Estoque Total, Baixo Estoque, Movimentações)
 - Lista de produtos recentes
 - Histórico das últimas movimentações
 - Atualização em tempo real
 
 ### Tela 4 — Produtos
+<img width="1366" height="649" alt="image" src="https://github.com/user-attachments/assets/6b622e71-ff20-4482-a020-7eb3a005f674" />
+
 - Listagem completa de produtos
 - Campo de busca/filtro
 - Botão para novo produto
@@ -140,11 +146,15 @@ O projeto atende integralmente aos requisitos propostos, contemplando:
 - Ações: editar, deletar
 
 ### Tela 5 — Cadastro de Produto
+<img width="1366" height="644" alt="image" src="https://github.com/user-attachments/assets/298dc057-0255-4e61-8fec-1f745e452c03" />
+
 - Formulário com campos: Nome, Quantidade, Fornecedor, Lote
 - Validação de campos obrigatórios
 - Mensagens de sucesso/erro
 
 ### Tela 6 — Movimentações
+<img width="1347" height="646" alt="image" src="https://github.com/user-attachments/assets/2d18ee62-bf84-40ec-a32f-ca2e8e4b163d" />
+
 - Formulário para nova movimentação
 - **Autocomplete** para seleção de produto
 - Campo tipo: Entrada/Saída
@@ -293,10 +303,6 @@ npm run preview
 
 O projeto inclui um sistema básico de autenticação:
 
-### Usuário Demo
-- **Usuário:** `demo`
-- **Senha:** `1234`
-
 ### Criar Novo Usuário
 1. Ir para página de "Cadastro"
 2. Preencher formulário com username e senha
@@ -367,10 +373,11 @@ O projeto inclui um sistema básico de autenticação:
 
 ## 👥 Autoria
 
-**Desenvolvedor:** Seu Nome / Time de Desenvolvimento
+**Desenvolvedores:** Pedro , Rita e Alice
 **Projeto:** Controle de Estoque - Sistema de Gerenciamento
 **Tipo:** Aplicação Web (FrontEnd)
 **Tecnologia:** ReactJS + Vite + Tailwind CSS
+**Instituição:** Instituto Federal de Brasília (IFB)
 
 ---
 
@@ -385,12 +392,6 @@ Este projeto demonstra:
 ✅ **UX/UI** intuitiva e responsiva
 ✅ Boas práticas de **organização de código**
 ✅ Implementação de **features avançadas** (autocomplete, polling em tempo real)
-
----
-
-## 📄 Licença
-
-MIT License — Veja LICENSE para detalhes
 
 ---
 
